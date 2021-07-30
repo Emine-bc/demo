@@ -31,6 +31,13 @@
           <td th:utext="${c.jour}"></td>
           <td th:utext="${c.medecin.nom} + ' '+ ${c.medecin.prenom} "></td>
           <td th:utext="${c.client.nom} + ' '+ ${c.client.prenom} "></td>
+
+          <td>
+            <a th:href="@{/rdvs/delete/{idm} (idm=${c.id})}" role="button" class="btn btn-danger"> Delete</a>
+          </td>
+          <td>
+            <a th:href="@{/rdvs/update/{idm} (idm=${c.id})}" role="button" class="btn btn-warning"> Update</a>
+          </td>
         </tr>
         </tbody>
 

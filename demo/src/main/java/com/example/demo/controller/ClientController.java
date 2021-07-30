@@ -25,6 +25,7 @@ public class ClientController {
          return "client ajouté avec succes";
     }
 
+
     //design pattern mvc
     @RequestMapping(value = "/index",method = RequestMethod.GET)
      public ModelAndView index(){

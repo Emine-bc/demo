@@ -10,10 +10,7 @@ import com.example.demo.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -45,11 +42,39 @@ public class RdvController {
         }
 
         @RequestMapping(value = "/rdvs/save",method = RequestMethod.POST)
-        public String save(@ModelAttribute("rdvForm") RendezVs rdv){
-            agent.save(rdv);
-            return ("rendez-vous ajouter");
+        public ModelAndView save(@Valid@ModelAttribute("rdvForm") RendezVs rdv, BindingResult result){
+            if(result.hasErrors()){
+                return (new ModelAndView("rdv"));
+            }
+            else {
+                agent.save(rdv);
+                return(new ModelAndView("redirect:/rdvs/list"));
+            }
         }
 
+
+
+    @RequestMapping(value = "/rdvs/update/{idc}",method = RequestMethod.GET)
+    public ModelAndView update(@PathVariable("idc")long idrv){
+        RendezVs rendezvs =agent.findById(idrv).get();
+        List<Client> clients = clientService.consulte();//get list clients
+        List<Medecin> meds = medecinService.consulte();//get list medecins
+        ModelAndView model = new ModelAndView();
+        model.addObject("rdvForm", rendezvs);
+        model.addObject("clients", clients);//select clients
+        model.addObject("medecins", meds);//select medecins
+        model.setViewName("editrendezvs");
+        return model;
+    }
+
+
+
+
+    @RequestMapping(value = "/rdvs/delete/{idc}",method = RequestMethod.GET)
+    public ModelAndView delete_rendezvs(@PathVariable("idc") RendezVs idc){
+        agent.delete(idc);
+        return (new ModelAndView("redirect:/rdvs/list"));
+    }
 
 
         /********************************************************************************/
