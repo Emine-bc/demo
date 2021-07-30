@@ -54,7 +54,7 @@ public class RdvController {
 
         /********************************************************************************/
 
-        @RequestMapping(value = "/rendez-vs/list",method = RequestMethod.GET)
+        @RequestMapping(value = "/rdvs/list",method = RequestMethod.GET)
         public ModelAndView listRendevs(){
            List<RendezVs> RENDEZVS = (List<RendezVs>) agent.findAll();
             ModelAndView model = new ModelAndView();

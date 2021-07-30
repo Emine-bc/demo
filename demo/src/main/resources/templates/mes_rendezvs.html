@@ -17,17 +17,20 @@
       <table class="table table-striped">
         <thead>
         <th scope="row">ID_RENDEZVS</th>
-        <th scope="row">Nom</th>
-        <th scope="row">Prenom</th>
-        <th scope="row">Delete</th>
+        <th scope="row">jour</th>
+        <th scope="row">medecin </th>
+        <th scope="row">client</th>
+
         <th scope="row">update</th>
+        <th scope="row">delete</th>
         </thead>
 
         <tbody>
         <tr th:each="c : ${mesRendezvs}">
-          <td th:utext="${c.date}"></td>
+          <td th:utext="${c.id}"></td>
           <td th:utext="${c.jour}"></td>
-
+          <td th:utext="${c.medecin.nom} + ' '+ ${c.medecin.prenom} "></td>
+          <td th:utext="${c.client.nom} + ' '+ ${c.client.prenom} "></td>
         </tr>
         </tbody>
 
